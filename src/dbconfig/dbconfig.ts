@@ -11,12 +11,13 @@ const dbconnect = async () => {
       );
     }
     const connectionInstance = await mongoose.connect(url);
-    console.log(connectionInstance);
+    if(!connectionInstance){
+      throw new Error("Error connecting to MongoDB")
+    }
     const connection = mongoose.connection;
-    connection.on("error", (error) => {
-      console.log(error + "Error connecting to MongoDB");
-      process.exit();
-    });
+    connection.on('connected', () => {
+      console.log('MongoDB connected successfully');
+  })
   } catch (error) {
     console.log(error + "Error connecting to MongoDB");
   }

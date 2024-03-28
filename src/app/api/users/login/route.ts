@@ -11,7 +11,6 @@ export async function POST(req: NextRequest) {
     try {
         const reqbody = await req.json();
         const { email, password } = reqbody;
-        console.log(reqbody);
         // check if email exists
         const userdata = await User.findOne({ email });
         if(!userdata){
@@ -36,7 +35,7 @@ export async function POST(req: NextRequest) {
         response.cookies.set('token',token,{
             httpOnly: true,
         });
-        console.log(userdata);
+        // console.log(userdata);
         return response;
     } catch (error : any) {
         return NextResponse.json({error: error.message}, {status: 500})
