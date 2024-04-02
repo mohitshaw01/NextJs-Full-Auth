@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/user.models";
 import dbconnect from "@/dbconfig/dbconfig";
-import {getDataFromToken} from "@/utils/getDataFromToken"; // Add this import statement
+import {getDataFromToken} from "@/utils/getDataFromToken"; // Add this
 
 dbconnect();
 
@@ -9,7 +9,7 @@ export async function GET(request:NextRequest){
 
     try {
         const userId = await getDataFromToken(request);
-        const user = await User.findOne({id: userId}).select("-password");
+        const user = await User.findOne({_id: userId}).select("-password");
         if(!user){
             return NextResponse.json({
                 message: "User not found"
